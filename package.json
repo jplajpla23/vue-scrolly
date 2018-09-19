@@ -1,7 +1,7 @@
 {
   "name": "@unisharp/vue-scrolly",
   "description": "Overlay scrollbar for Vue.js.",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "author": "Yan Sern <hey@yansern.io",
   "contributor": "UniSharp <unisharp.com@gmail.com",
   "main": "dist/vue-scrolly.js",
