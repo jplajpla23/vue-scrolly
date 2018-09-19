@@ -2,7 +2,7 @@
   "name": "@unisharp/vue-scrolly",
   "description": "Overlay scrollbar for Vue.js.",
   "version": "0.9.4",
-  "author": "Yan Sern <hey@yansern.io>",
+  "author": "UniSharp <unisharp.com@gmail.com>",
   "main": "dist/vue-scrolly.js",
   "unpkg": "dist/vue-scrolly.min.js",
   "module": "dist/vue-scrolly.esm.js",
@@ -15,13 +15,13 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --env.entry=demo --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "license": "MIT",
-  "homepage": "https://github.com/yansern/vue-scrolly/index.html",
+  "homepage": "https://github.com/UniSharp/vue-scrolly",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yansern/vue-scrolly.git"
+    "url": "git+https://github.com/UniSharp/vue-scrolly.git"
   },
   "bugs": {
-    "url": "https://github.com/yansern/vue-scrolly/issues"
+    "url": "https://github.com/UniSharp/vue-scrolly/issues"
   },
   "keywords": [
     "vue",
