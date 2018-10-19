@@ -947,8 +947,8 @@ var __vue_module__ = {
         this.touchStartY = event.touches[0].pageY;
       }
 
-      var dx = event.touches[0].pageX - this.touchStartX;
-      var dy = event.touches[0].pageY - this.touchStartY;
+      var dx = -(event.touches[0].pageX - this.touchStartX);
+      var dy = -(event.touches[0].pageY - this.touchStartY);
       this.touchStartX = event.touches[0].pageX;
       this.touchStartY = event.touches[0].pageY;
 

@@ -322,8 +322,8 @@ export default {
         this.touchStartY = event.touches[0].pageY;
       }
 
-      const dx = event.touches[0].pageX - this.touchStartX;
-      const dy = event.touches[0].pageY - this.touchStartY;
+      const dx = -(event.touches[0].pageX - this.touchStartX);
+      const dy = -(event.touches[0].pageY - this.touchStartY);
       this.touchStartX = event.touches[0].pageX;
       this.touchStartY = event.touches[0].pageY;
 
