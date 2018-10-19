@@ -634,6 +634,9 @@ var PROPERTY_CHANGE_EVENT = 'propertychange';
 var MOUSE_WHEEL_EVENT = 'wheel';
 var MOUSE_MOVE_EVENT = 'mousemove';
 var MOUSE_UP_EVENT = 'mouseup';
+var TOUCH_MOVE = 'touchmove';
+var TOUCH_START = 'touchstart';
+var TOUCH_END = 'touchend';
 var DOM_CHANGE_HANDLER_THROTTLING_RATE = 250;
 var PARENT_SCROLL_ACTIVATION_POINT = 25;
 
@@ -661,6 +664,8 @@ var __vue_module__ = {
       onDomChangeHandler: null,
       mutationObserver: null,
       isScrolling: false,
+      touchStartX: null,
+      touchStartY: null,
     };
   },
 
@@ -703,6 +708,24 @@ var __vue_module__ = {
       container.addEventListener(
         MOUSE_WHEEL_EVENT,
         onMouseWheelHandler,
+        // Unable to turn on passive: true if parentScroll is disabled.
+        // Violation warning is expected in Chrome.
+        supportsPassiveEvents ? { passive: passive } : false
+      );
+
+      container.addEventListener(
+        TOUCH_START,
+        this.onTouchStart
+      );
+
+      container.addEventListener(
+        TOUCH_END,
+        this.onTouchEnd
+      );
+
+      container.addEventListener(
+        TOUCH_MOVE,
+        this.onTouchMove,
         // Unable to turn on passive: true if parentScroll is disabled.
         // Violation warning is expected in Chrome.
         supportsPassiveEvents ? { passive: passive } : false
@@ -906,6 +929,45 @@ var __vue_module__ = {
 
       addEventListener('mousemove', onMouseMove);
       addEventListener('mouseup', onMouseUp);
+    },
+
+    onTouchStart: function onTouchStart (event) {
+      this.touchStartX = event.touches[0].pageX;
+      this.touchStartY = event.touches[0].pageY;
+    },
+
+    onTouchEnd: function onTouchEnd () {
+      this.touchStartX = null;
+      this.touchStartY = null;
+    },
+
+    onTouchMove: function onTouchMove(event) {
+      if (!this.touchStartX) {
+        this.touchStartX = event.touches[0].pageX;
+        this.touchStartY = event.touches[0].pageY;
+      }
+
+      var dx = event.touches[0].pageX - this.touchStartX;
+      var dy = event.touches[0].pageY - this.touchStartY;
+      this.touchStartX = event.touches[0].pageX;
+      this.touchStartY = event.touches[0].pageY;
+
+      var ref =
+        // after refreshing scroll layout
+        this.refreshScrollLayout(dx, dy);
+      var scrollLayoutX = ref.x;
+      var scrollLayoutY = ref.y;
+
+      // If using passive scrolling, stop.
+      if (this.passiveScroll) { return; }
+
+      // Determine if scrolling of parent body should be prevented
+      var canScrollParentX = scrollLayoutX && scrollLayoutX.canScrollParent;
+      var canScrollParentY = scrollLayoutY && scrollLayoutY.canScrollParent;
+
+      // If scrolling parent is not possible, prevent it.
+      (!this.parentScroll || !(canScrollParentX || canScrollParentY)) &&
+        event.preventDefault();
     },
 
     onMouseWheel: function onMouseWheel(event) {
