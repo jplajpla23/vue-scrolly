@@ -16,13 +16,13 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --env.entry=demo --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "license": "MIT",
-  "homepage": "https://github.com/UniSharp/vue-scrolly",
+  "homepage": "https://github.com/jplajpla23/vue-scrolly",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UniSharp/vue-scrolly.git"
+    "url": "git+https://github.com/jplajpla23/vue-scrolly.git"
   },
   "bugs": {
-    "url": "https://github.com/UniSharp/vue-scrolly/issues"
+    "url": "https://github.com/jplajpla23/vue-scrolly/issues"
   },
   "keywords": [
     "vue",
